@@ -32,10 +32,8 @@ def postReviews(review_data, critic_name):
                 'review_link': link,
                 "critic_score": round(float(critic_score)),
             }
-            print(album_name)
             
             response = requests.post('https://63zrqq4iqb.execute-api.us-east-1.amazonaws.com/prod/criticreview',
                                               json=payload)
-            print(response)
         except:
             continue

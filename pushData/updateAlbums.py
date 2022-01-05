@@ -6,7 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 import urllib3
 
-with open('beatly_data.csv', mode='r', encoding='utf-8-sig') as csv_file:
+with open('backup.csv', mode='r', encoding='utf-8-sig') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     line_count = 0
     counter = 0
@@ -19,9 +19,9 @@ with open('beatly_data.csv', mode='r', encoding='utf-8-sig') as csv_file:
             line_count += 1
             
         payload = {
-            "artist": row["artist"],
-            "album_name": row["album_name"],
-            "date": row["release_date"],
+            "album_name": row["album_name"].lower(),
+            "artist": row["artist"].lower(),
+            "album_cover": row["album_cover"],
         }
 
         response = requests.post('https://ji13d7wouf.execute-api.us-east-1.amazonaws.com/prod/updatealbum',

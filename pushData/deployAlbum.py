@@ -8,7 +8,7 @@ import urllib3
 
 def postAlbumData(beatly_data):
     print("Deploying Albums")
-    final_albums = {'album_name': [], 'artist': [], 'album_cover': [], 'genre': [], 'appleMusicID': [], 'spotifyID': [], 'date': []}
+    final_albums = {'album_name': [], 'artist': [], 'album_cover': [], 'genre': [], 'appleMusicID': [], 'spotifyID': [], 'date': [], 'slug': []}
 
     beatly_data = beatly_data[beatly_data.album_cover != 'NAP']
 
@@ -50,10 +50,10 @@ def postAlbumData(beatly_data):
             final_albums['spotifyID'].append(spotifyID)
             final_albums['genre'].append(genres)
             final_albums['date'].append(release_date)
+            final_albums['slug'].append(json.loads(response.content)['slug'])
         else:
             print(response)
 
-    Final_Reviews = pd.DataFrame(final_albums, columns=['album_name', 'artist', 'album_cover', 'genre', 'appleMusicID', 'spotifyID', 'date'])
+    Final_Reviews = pd.DataFrame(final_albums, columns=['album_name', 'artist', 'album_cover', 'genre', 'appleMusicID', 'spotifyID', 'date', 'slug'])
     Final_Reviews.to_csv('final_beatly_data.csv', index=False, encoding = 'utf-8-sig')
     return Final_Reviews
-    
